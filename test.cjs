@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const port = 3000;
 
 // Serve static files from a directory (e.g., 'public' or 'js')
-app.use(express.static('C:\\Users\\rwv12\\OneDrive\\Desktop\\Work\\JS_PRAC-main'));
+app.use(express.static('PROCJECT/DIRECTORY/PATH/HERE));
 
 // Create a new SQLite database connection
 const db = new sqlite3.Database('./test.db', (err) => {
