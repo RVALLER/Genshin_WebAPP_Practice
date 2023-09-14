@@ -1,0 +1,14 @@
+{
+  "name": "JS_PRAC-main",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "decimal.js": "^10.4.3",
+    "electron": "27.0.0-alpha.1",
+    "express": "^4.18.2",
+    "npm": "^10.1.0",
+    "npm-run-path": "^5.1.0",
+    "pnpm": "^8.7.4",
+    "sqlite3": "^5.1.6"
+  }
+}
