@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Wish Simulator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.3.1/decimal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/decimal.js@10.3.1"></script>
     <style>
         /* Your existing styles here */
 
@@ -129,7 +129,8 @@
 <!-- Reference the locally stored 'decimal.js' library -->
 <script src="https://cdn.jsdelivr.net/npm/decimal.js@10.3.1"></script>
 
-<script type="module" src="./js/wishes.mjs"></script>
+<!-- Removed the script import here, as the script is now inline -->
+
 <div class="top-menu">
     <a href="form.html">Home Page</a>
     <a href="wishsimulator.html">Wish Simulator</a>
@@ -159,8 +160,13 @@
     </div>
 </div>
 
-<script type="module">
-    import { binomialProbability } from './js/wishes.mjs';
+<script>
+    // Define a function to calculate the probability of getting at least one 5-star in a certain number of wishes
+    function calculateProbability(numWishes, probabilityPerWish) {
+        const notGetting5Star = 1 - probabilityPerWish;
+        const combinedProbability = 1 - Math.pow(notGetting5Star, numWishes);
+        return combinedProbability;
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('wish-simulator-form');
@@ -174,16 +180,24 @@
             const nInput = document.getElementById('n');
             const pInput = document.getElementById('p');
 
-            const x = BigInt(xInput.value);
-            const n = BigInt(nInput.value);
-            const p = new Decimal(pInput.value);
+            const x = parseInt(xInput.value, 10);
+            const n = parseInt(nInput.value, 10);
+            const p = parseFloat(pInput.value) / 100;
 
-            // Calculate the probability using the binomialProbability function
-            const probability = binomialProbability(x, n, p);
+            // Calculate the probability using the function
+            const probability = calculateProbability(n, p);
+
+            // Convert the probability to a percentage format with one decimal place and remove the leading "0"
+            const probabilityAsPercentage = (probability * 10000).toFixed(3).replace(/^0+/, ''); // Removes leading "0"
 
             // Display the result in the modal dialog
-            resultContainer.textContent = `Calculated Probability: ${probability}`;
+            resultContainer.textContent = `Calculated Probability: ${probabilityAsPercentage}%`;
             modal.style.display = 'block';
+
+
+
+
+
         });
 
         // Add an event listener to close the modal when the close button is clicked
@@ -193,7 +207,6 @@
         });
     });
 </script>
-
 
 </body>
 </html>
